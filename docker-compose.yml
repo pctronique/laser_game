@@ -1,0 +1,17 @@
+# Adopt version 2 syntax:
+#   https://docs.docker.com/compose/compose-file/#/versioning
+version: '2'
+
+services:
+###########################
+# Setup the PHP container
+###########################
+    php:
+        container_name: laser-game
+        restart: always
+        build: .
+        ports:
+            - 92:80
+        volumes:
+            - ./src/:/var/www/html/
+            
