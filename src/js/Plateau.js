@@ -2,37 +2,54 @@ class Plateau {
     constructor(grid, ctx) {
         this.grid = grid;
         this.ctx = ctx;
+        this.imgFond = "";
+        this.perso = undefined;
     }
 
-    map(imgDef) {
-        for (let indexX = 1; indexX < this.grid.x; indexX++) {
-            for (let indexY = 1; indexY < this.grid.y; indexY++) {
-                this.drawImg(indexX, indexY, this.grid.widthCard, this.grid.heightCard, imgDef);
-            }
-        }
+    create() {
+        this.drawImg(this.imgFond, this.perso);
+    }
+
+    addImgFond(img) {
+        this.imgFond = img;
+    }
+
+    addPerso(perso) {
+        this.perso = perso;
     }
     
-    drawImg(posX, posY, width, height, imgSrc) {
+    drawImg(imgSrc, perso) {
         let img = new Image();
         let ctx = this.ctx;
+        let grid = this.grid;
         img.onload = function() {
-            console.log(ctx);
-            console.log(posX+" / "+posY+" / "+width+" / "+height);
-            ctx.drawImage(posX, posY, width, height);
+            for (let indexX = 1; indexX <= grid.x; indexX++) {
+                for (let indexY = 1; indexY <= grid.y; indexY++) {
+                    let pos = grid.placeCard(indexX,indexY)
+                    ctx.drawImage(img, pos.x, pos.y, grid.widthCard, grid.heightCard);
+                }
+            }
+            perso.drawImg();
+            grid.displayLine(ctx);
         };
         img.src = imgSrc;
-      }
+    }
 
 }
 
 var canvas = document.getElementById('plateau-game');
 var ctx = canvas.getContext('2d');
 
-let grid = new Grid(800, 800, 6, 6);
+let grid = new Grid(800, 800, 4, 4);
 canvas.style.width = grid.width;
 canvas.style.height = grid.height;
 
-let plateau = new Plateau(grid, ctx);
-plateau.map("./../img/sable.png");
+let personage = new Personage("./img/perso01.png", grid, ctx);
 
-grid.displayLine(ctx);
+let plateau = new Plateau(grid, ctx);
+plateau.addImgFond("./img/sable2.png");
+plateau.addPerso(personage);
+plateau.create();
+
+
+

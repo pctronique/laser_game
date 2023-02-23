@@ -15,7 +15,7 @@ class Grid {
         let ycard = y - 1;
         let posX = this.widthCard*xcard;
         let posY = this.heightCard*ycard;
-        return [posX, posY];
+        return {x:posX, y:posY};
     }
 
     displayLine(ctx) {
