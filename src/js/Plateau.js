@@ -1,9 +1,11 @@
 class Plateau {
-    constructor(grid, ctx) {
+    constructor(canvas, grid, ctx) {
         this.grid = grid;
         this.ctx = ctx;
         this.imgFond = "";
         this.perso = undefined;
+        canvas.setAttribute("width", grid.width);
+        canvas.setAttribute("height", grid.height);
     }
 
     create() {
@@ -29,27 +31,10 @@ class Plateau {
                     ctx.drawImage(img, pos.x, pos.y, grid.widthCard, grid.heightCard);
                 }
             }
-            perso.drawImg();
             grid.displayLine(ctx);
+            perso.drawImg();
         };
         img.src = imgSrc;
     }
 
 }
-
-var canvas = document.getElementById('plateau-game');
-var ctx = canvas.getContext('2d');
-
-let grid = new Grid(800, 800, 4, 4);
-canvas.style.width = grid.width;
-canvas.style.height = grid.height;
-
-let personage = new Personage("./img/perso01.png", grid, ctx);
-
-let plateau = new Plateau(grid, ctx);
-plateau.addImgFond("./img/sable2.png");
-plateau.addPerso(personage);
-plateau.create();
-
-
-

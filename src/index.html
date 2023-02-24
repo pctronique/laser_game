@@ -4,25 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css" />
     <title>Document</title>
 </head>
 <body>
-
-
-    <canvas id="plateau-game" width="800" height="800"></canvas>
-    <canvas id="canvas" width="800" height="800"></canvas>
+    <div id="contenu">
+        <canvas id="plateau-game"></canvas>
+    </div>
     <script src="./js/Grid.js"></script>
     <script src="./js/Personage.js"></script>
     <script src="./js/Plateau.js"></script>
-    <script>
-        const input = document.getElementById('plateau-game');
-    
-    input.onkeydown = logKey;
-    
-    function logKey(e) {
-        console.log(e.code);
-    }
-    </script>
-
+    <script src="./js/Game.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 </html>

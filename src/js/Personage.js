@@ -17,7 +17,11 @@ class Personage {
         img.src = this.imgPerso;
     }
 
-    pos(x,y) {
+    deplacement(x,y) {
+        if(x < 1) x=1;
+        if(x>this.grid.x) x=this.grid.x;
+        if(y < 1) y=1;
+        if(y>this.grid.y) y=this.grid.y;
         this.pos = {x:x, y:y};
     }
 }
