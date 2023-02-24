@@ -4,12 +4,19 @@ class Plateau {
         this.ctx = ctx;
         this.imgFond = "";
         this.perso = undefined;
+        this.key = undefined;
+        this.pieges = undefined;
+        this.game = undefined;
         canvas.setAttribute("width", grid.width);
         canvas.setAttribute("height", grid.height);
     }
 
-    create() {
-        this.drawImg(this.imgFond, this.perso);
+    setGrid(grid) {
+        this.grid = grid;
+    }
+
+    create(playLoad = false) {
+        this.drawImg(this.imgFond, this.perso, this.key, this.pieges, this.game, playLoad);
     }
 
     addImgFond(img) {
@@ -19,8 +26,20 @@ class Plateau {
     addPerso(perso) {
         this.perso = perso;
     }
+
+    addPieges(pieges) {
+        this.pieges = pieges;
+    }
+
+    addKey(key) {
+        this.key = key;
+    }
+
+    addGame(game) {
+        this.game = game;
+    }
     
-    drawImg(imgSrc, perso) {
+    drawImg(imgSrc, perso, key, pieges, game, playLoad) {
         let img = new Image();
         let ctx = this.ctx;
         let grid = this.grid;
@@ -31,8 +50,13 @@ class Plateau {
                     ctx.drawImage(img, pos.x, pos.y, grid.widthCard, grid.heightCard);
                 }
             }
+            key.drawImg();
+            if(!playLoad) {
+                pieges.drawImg();
+            }
             grid.displayLine(ctx);
             perso.drawImg();
+            game.parcoursJeu();
         };
         img.src = imgSrc;
     }
