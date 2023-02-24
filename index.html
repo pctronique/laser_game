@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas>
+    Désolé, votre navigateur ne prend pas en charge &lt;canvas&gt;.
+    </canvas>
+
+</body>
+</html>
+
+
+
+
+
+<script>
+    let gx = 4;
+    let gy = 4;
+    let width = 800;
+    let height = 800;
+    let canvas = document.querySelector('canvas')
+    var ctx = document.querySelector('canvas').getContext('2d');
+    canvas.setAttribute("width",width)
+    canvas.setAttribute("height",height)
+
+    
+    let taillex = Math.floor(width / gx)
+    let tailley = Math.floor(height / gy)
+    let personnagex = 0;
+    let personnagey = 0;
+    function base(){
+        function draw() {
+            ctx.reset(); // Clear the context!
+            ctx.lineWidth = 2 ;
+            ctx.strokeRect(0, 0, width, height);
+    
+        
+            for (let x = 0; x < gx; x++) {
+
+                posx = x * taillex
+                ctx.beginPath();
+                ctx.moveTo(posx, 0);
+                ctx.lineTo(posx, height);
+                ctx.stroke();
+            }  
+                
+            for (let y = 0; y < gy; y++) {
+
+                posy = y * tailley
+                ctx.beginPath();
+                ctx.moveTo(0, posy);
+                ctx.lineTo(width,posy);
+                ctx.stroke();
+            }
+        
+        }
+        draw();
+        let image = new Image ();
+        image.src = '/img/img1.png'
+        image.addEventListener('load', function(){
+            ctx.drawImage(image, personnagex, personnagey, taillex, tailley);
+        }, false);
+}
+
+base();
+
+
+let moveTop = false;
+let moveRight = false;
+let moveBottom = false;
+let moveLeft = false;
+
+    document.addEventListener("keydown", keyDownHandler, false);
+
+function keyDownHandler(e) {   
+  
+  if (e.key === "ArrowRight") {  
+    personnagex += taillex
+    if(personnagex > width - taillex){
+        personnagex = width - taillex;
+    }
+    base();
+    moveRight = true;
+    
+
+  } else if (e.key === "ArrowLeft") {
+    personnagex -= taillex
+    if(personnagex < 0){
+        personnagex = 0;
+    }
+    base();
+    moveLeft = true;
+
+  }
+  else if (e.key === "ArrowDown") {
+    personnagey += tailley
+    if(personnagey > height - tailley){
+        personnagey = height - tailley;
+    }
+    base();
+    moveBottom = true;
+  } else if (e.key === "ArrowUp") {
+    personnagey -= tailley
+    if(personnagey < 0){ 
+        personnagey = 0;
+    }
+    base();
+    moveTop = true;
+  }
+}
+
+
+ 
+
+
+
+
+  
+
+</script>
